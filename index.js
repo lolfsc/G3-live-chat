@@ -1,4 +1,5 @@
 require("dotenv").config();
+
 const { Client, GatewayIntentBits } = require("discord.js");
 const express = require("express");
 const http = require("http");
@@ -6,6 +7,7 @@ const { Server } = require("socket.io");
 
 const TOKEN = process.env.TOKEN;
 const CHANNEL_ID = process.env.CHANNEL_ID;
+
 const client = new Client({
   intents: [
     GatewayIntentBits.Guilds,
@@ -37,6 +39,8 @@ client.on("messageCreate", (message) => {
 
 client.login(TOKEN);
 
-server.listen(3000, () => {
-  console.log("Overlay lancé sur http://localhost:3000");
+const PORT = process.env.PORT || 3000;
+
+server.listen(PORT, () => {
+  console.log("Server running on port " + PORT);
 });
