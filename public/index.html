@@ -14,7 +14,6 @@ body {
   font-family: 'Montserrat', sans-serif;
 }
 
-/* CENTRÉ + RESPONSIVE */
 #container {
   position: absolute;
   top: 50%;
@@ -98,6 +97,9 @@ video, img {
 const socket = io();
 const container = document.getElementById("container");
 
+// Son de notification
+const notificationSound = new Audio("assets/audio/notification.wav");
+
 socket.on("newMedia", (data) => {
 
   document.getElementById("username").innerText = data.username;
@@ -112,6 +114,10 @@ socket.on("newMedia", (data) => {
   container.classList.remove("show");
   void container.offsetWidth;
   container.classList.add("show");
+
+  // Jouer le son quand le media apparait
+  notificationSound.currentTime = 0;
+  notificationSound.play().catch(() => {});
 
   if (url.endsWith(".mp4") || url.endsWith(".webm") || url.endsWith(".mov")) {
 
